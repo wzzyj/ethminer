@@ -25,7 +25,10 @@ RUN git submodule update --init --recursive && \
 ## Build Completed
 FROM nvidia/cuda:11.3.0-runtime-ubuntu20.04 
 COPY --from=builder /usr/local/bin/ethminer /usr/local/bin
-ADD helper /ethminer/helper
-RUN /ethminer/helper/init.sh
-CMD ["bash", "-c", "/ethminer/helper/runner.sh"]
+
+ENV API_PORT=3123
+
+ADD runner.sh /ethminer/runner.sh
+ADD .env /ethminer/.env
+CMD ["bash", "-c", "/ethminer/runner.sh"]
 

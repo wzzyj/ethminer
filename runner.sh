@@ -1,6 +1,8 @@
 #!/bin/bash
 export $(cat /ethminer/.env | xargs)
 
+echo "Start mining: ${ETH_WALLET}.${WORKERNAME}"
+
 /usr/local/bin/ethminer -U \
     --HWMON 2 \
     --tstart ${GPU_T_START} \
