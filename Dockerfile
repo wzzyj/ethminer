@@ -22,4 +22,10 @@ RUN git submodule update --init --recursive && \
     cmake --build . -j && \
     make install
 
+## Build Completed
+FROM nvidia/cuda:11.3.0-runtime-ubuntu20.04 
+COPY --from=builder /usr/local/bin/ethminer /usr/local/bin
+ADD helper /ethminer/helper
+RUN /ethminer/helper/init.sh
+CMD ["bash", "-c", "/ethminer/helper/runner.sh"]
 
